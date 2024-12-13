@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+ minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="format-detection" content="telphone=no, email=no" />
+        <title>德新设计</title>
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+
+        <link rel="stylesheet" type="text/css" href="css/reset.css">
+        <link rel="stylesheet" type="text/css" href="css/vant.css">
+
+        <script src="js/utils.js"></script>
+        <script src="js/vue.js"></script>
+        <script src="js/vant.js"></script>
+        <script src="js/axios.min.js"></script>
+        <script src="js/testJson.js"></script>
+        <script src="js/qrcode.js"></script>
+
+    </head>
+
+    <body style="background-color: #F7FBFE;">
+        <div id="app">
+            <div class="div-cascading">
+                <img :src="isPc ? 'img/ttbg@2x.png' : 'img/m_ttbg@2x.png'" class="top-bg-img">
+                <div class="div-download">
+                    <img class="logo-icon" src="img/logo@2x.png">
+                    <div class="logo-text">德新设计</div>
+                    <p class="logo-text-tips">万物可3D </p>
+
+                    <!-- PC模式按钮 -->
+                    <div v-if="isPc" :style="{display: showSmall ? 'none': 'flex'}">
+                        <!-- iOS -->
+                        <div :class="showiOSQRCode ? 'box-shadow' :''" style="position: relative;">
+                            <div class="download" :class="showiOSQRCode ? 'download-show' : ''">
+                                <img :src="showiOSQRCode ? 'img/ic_ios2@2x.png' : 'img/iOS.png'">
+                                <span>iOS下载</span>
+                            </div>
+                            <!-- 鼠标滑动区 -->
+                            <div class="mouse-block" @mouseenter="showiOSQRCode = true"
+                                @mouseout="showiOSQRCode = false">
+                            </div>
+                            <div :style="{display: showiOSQRCode? '':'none'}" class="qrcode-bg" id="iOSQRCode"></div>
+                        </div>
+
+                        <!-- android -->
+                        <div :class="showAndroidQRCode ? 'box-shadow' : ''"
+                            style="margin-left: 30px;position: relative;">
+                            <div class="download" :class="showAndroidQRCode ? 'download-show' : ''">
+                                <img :src="showAndroidQRCode ? 'img/ic_android2@2x.png' : 'img/android.png'">
+                                <span>Android下载</span>
+                            </div>
+                            <!-- 鼠标滑动区 -->
+                            <div class="mouse-block" @mouseenter="showAndroidQRCode = true"
+                                @mouseout="showAndroidQRCode = false">
+                            </div>
+                            <div :style="{display: showAndroidQRCode? '':'none'}" class="qrcode-bg" id="androidQRCode">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="div-phone">
+                    <img src="img/phone@2x.png">
+                </div>
+
+                <div v-if="!isPc" class="div-jiantou">
+                    <img src="img/Frame 115@2x.png">
+                </div>
+            </div>
+
+            <!-- PC模式屏幕小于1000的时候 -->
+            <div :style="{display:  isPc && showSmall ? 'flex': 'none'}" class="small-pc">
+                <!-- iOS -->
+                <div :class="showiOSQRCode ? 'box-shadow' :''" style="position: relative;">
+                    <div class="download testrem" :class="showiOSQRCode ? 'download-show' : ''">
+                        <img :src="showiOSQRCode ? 'img/ic_ios2@2x.png' : 'img/iOS.png'">
+                        <span>iOS下载</span>
+                    </div>
+                    <!-- 鼠标滑动区 -->
+                    <div class="mouse-block" @mouseenter="showiOSQRCode = true" @mouseout="showiOSQRCode = false">
+                    </div>
+                    <div :style="{display: showiOSQRCode? '':'none'}" class="qrcode-bg" id="iOSQRCodeSmall"></div>
+                </div>
+
+                <!-- android -->
+                <div :class="showAndroidQRCode ? 'box-shadow' : ''" style="margin-left: 30px;position: relative;">
+                    <div class="download" :class="showAndroidQRCode ? 'download-show' : ''">
+                        <img :src="showAndroidQRCode ? 'img/ic_android2@2x.png' : 'img/android.png'">
+                        <span>Android下载</span>
+                    </div>
+                    <!-- 鼠标滑动区 -->
+                    <div class="mouse-block" @mouseenter="showAndroidQRCode = true"
+                        @mouseout="showAndroidQRCode = false">
+                    </div>
+                    <div :style="{display: showAndroidQRCode? '':'none'}" class="qrcode-bg" id="androidQRCodeSmall">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 手机模式按钮 -->
+            <div v-if="!isPc" class="mobile-download">
+                <div class="download" @click="downloadApp('iOS')">
+                    <img src="img/iOS.png">
+                    <span>iOS下载</span>
+                </div>
+                <div style="margin-left: 15px;" class="download" @click="downloadApp('android')">
+                    <img src="img/android.png">
+                    <span>Android下载</span>
+                </div>
+            </div>
+
+            <div class="info-bg">
+                <div class="tab-title-bg">
+                    <span class="tab-text" style="opacity:0.08;">COMMUNITY</span>
+                    <div class="tab-text tab-title">
+                        社区
+                    </div>
+                </div>
+                <div class="tab-title-bg">
+                    <div class="tab-line"></div>
+                </div>
+
+                <div v-for="(item,index) in community" @click="openContent(item.id)">
+                    <div class="context-bg ">
+                        <div v-if="item.content">
+                            <!-- 有内容的时候走这里显示 -->
+                            <div class="info-title text-two-line">{{item.title}}</div>
+                            <p class="info-des text-two-line" v-html="item.content"> </p>
+                        </div>
+                        <div v-else class="no-title">
+                            <!-- 没内容走这里 -->
+                            <span class="info-title text-two-line">{{item.title}}</span>
+                        </div>
+                        <div v-if="item.video" class="video img-mar_l">
+                            <img class="content-img" :src="item.video + videoPicSuffix">
+                            <img class="video-img" src="img/Frame 31@2x.png">
+                        </div>
+                        <div v-else-if="item.img" class="img-mar_l video">
+                            <van-image fit="cover" class="content-img" radius='4' :src="item.img" />
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <div class="info-des loadMore" @click="getCommunity()">{{loadAllCommunity ? '已加载全部':'加载更多'}}</div>
+            </div>
+
+
+
+
+
+            <div class="info-bg" style="margin-top: 20px;">
+                <div class="tab-title-bg">
+                    <span class="tab-text" style="opacity:0.08;">CURRICULUM</span>
+                    <div class="tab-text tab-title">
+                        课程
+                    </div>
+                </div>
+                <div class="tab-title-bg">
+                    <div class="tab-line"></div>
+                </div>
+
+                <div v-for="(item,index) in curriculum" @click="openContent(item.id)">
+                    <div class="context-bg">
+                        <div v-if="item.content">
+                            <!-- 有内容的时候走这里显示 -->
+                            <div class="info-title text-two-line">{{item.title}}</div>
+                            <p class="info-des text-two-line" v-html="item.content"> </p>
+                        </div>
+                        <div v-else class="no-title">
+                            <!-- 没内容走这里 -->
+                            <span class="info-title text-two-line">{{item.title}}</span>
+                        </div>
+                        <div v-if="item.video" class="video img-mar_l">
+                            <img class="content-img" :src="item.video + videoPicSuffix">
+                            <img class="video-img" src="img/Frame 31@2x.png">
+                        </div>
+                        <div v-else-if="item.img" class="img-mar_l video">
+                            <van-image fit="cover" class="content-img" radius='4' :src="item.img" />
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                </div>
+                <div class="info-des loadMore" @click="getCurriculum()">{{loadAllCurriculum ? '已加载全部':'加载更多'}}</div>
+            </div>
+
+            <div class="info-bg" style="margin-top: 20px;">
+                <div class="tab-title-bg">
+                    <span class="tab-text" style="opacity:0.08;">ABOUT US</span>
+                    <div class="tab-text tab-title">
+                        关于我们
+                    </div>
+                </div>
+                <div class="tab-title-bg">
+                    <div class="tab-line"></div>
+                </div>
+
+                <p class="info-des about-text"> {{companyInfo.aboutText}} </p>
+            </div>
+            <!-- 地图 -->
+            <div id="map-container"></div>
+            <div class="bottom-view">
+                <div class="address-phone">
+                    <div v-if="isPc">
+                        <!-- PC模式 -->
+                        <img src="img/location.png">
+                        <span>{{companyInfo.address}}</span>
+                        <img src="img/cal_phone.png" style="margin-left:100px;">
+                        <span>{{companyInfo.phone}}</span>
+                    </div>
+                    <div v-else>
+                        <!-- 手机模式 -->
+                        <div>
+                            <img src="img/location.png">
+                            <span>{{companyInfo.address}}</span>
+                        </div>
+                        <div style="margin-top: 10px;" @click="callPhone">
+                            <img src="img/cal_phone.png">
+                            <span>{{companyInfo.phone}}</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <span>{{companyInfo.recordNo}} {{companyInfo.copyRight}} {{companyInfo.companyName}}</span>
+            </div>
+
+            <!-- 显示详情内容 -->
+            <van-popup v-model="showContent" class="detail-popup" :style="{'height': popupHeight + 'px'}">
+                <div class="dialog-header">
+                    <span class="popu-title">图文详情</span>
+                    <img @click="closePopup" src="img/btn_gb@2x.png" style="width: 14px;height: 14px;">
+                </div>
+                <iframe frameborder=" 0" width="100%" height="95%" :src="contentUrl">
+                </iframe>
+            </van-popup>
+
+
+            <!-- 弹窗提示用户去浏览器打开 -->
+            <div class="Pop-up" v-if="showDownloadTips">
+                <div class="fade" @click="showDownloadTips = false"></div>
+                <div class="wechat-tips">
+                    <img style="width: 80%; position: absolute; right: 0;" src="img/yd@2x.png"
+                        @click="showDownloadTips = false">
+                </div>
+            </div>
+
+        </div>
+    </body>
+    <script>
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    //社区数据
+                    community: [],
+                    //课程数据
+                    curriculum: [],
+                    showContent: false,
+                    showDownloadTips: false,
+                    contentUrl: '',
+                    isPc: true,
+                    companyInfo: {
+                        companyName: '上海德新工业产品设计有限公司',
+                        phone: '021-55127027',
+                        address: '杨浦区民京路929号D座608室',
+                        recordNo: '沪ICP备2023002100号',
+                        copyRight: 'Copyright 2010-2023',
+                        aboutText: '每个人内心都需要以艺术的形式表达自己的存在，了解3D设计，关注科技前沿，提高认知，拓展视野；以设计的方式表达自己的艺术，和世界分享你的灵感。\n\n用户可通过短视频、图文的形式分享自己的设计灵感，浏览社区获取设计资讯，并基于兴趣形成互动。',
+                        longitude: 121.532293,
+                        latitude: 31.328165
+                    },
+                    pageSize: 10,
+                    pageNumCommunity: 1,
+                    pageNumCurriculum: 1,
+                    loadAllCurriculum: false,
+                    loadAllCommunity: false,
+
+                    //视频后缀
+                    videoPicSuffix: '?spm=a2c4g.11186623.0.0.59f243b0zJ1M5t&x-oss-process=video/snapshot,t_2000,f_jpg,w_1000,h_1000,m_fast',
+                    showiOSQRCode: false,
+                    showAndroidQRCode: false,
+                    isTest: false,
+                    screenWidth: document.documentElement.clientWidth,
+                    screenHeight: document.documentElement.clientHeight,
+                    //显示小屏下的布局
+                    showSmall: false,
+                    popupHeight: 0,
+                    //切换大小屏模式阈值
+                    switchSmallThreshold: 1450
+                }
+            },
+
+            // created函数
+            created() {
+                //初始化不同的样式
+                init();
+                this.isPc = !isMobile();
+                //延迟100毫秒加载地图
+                setTimeout(() => {
+                    this.initMap();
+                }, 1000);
+                this.startFunction();
+            },
+            mounted() {
+                this.createQRCode();
+                //监听窗口的变化
+                window.onresize = () => {
+                    return (() => {
+                        this.screenWidth = document.body.clientWidth;
+                    })();
+                };
+                //计算弹窗的高度
+                let width = this.screenWidth * 0.22;
+                // let height = width * 2.16;
+                // if (height > this.screenHeight * 0.8) {
+                //     height = this.screenHeight * 0.8
+                // }
+                this.popupHeight = width * 2.16;
+                console.log('弹窗宽高：' + width + " " + this.popupHeight);
+
+                //判断显示那种UI
+                this.showSmall = this.screenWidth < this.switchSmallThreshold;
+            },
+            watch: {
+                //监听屏幕宽度的变化
+                screenWidth: function (newVal, oldVal) {
+                    this.showSmall = newVal < this.switchSmallThreshold;
+                }
+            },
+            // 方法
+            methods: {
+
+                //生产二维码
+                createQRCode() {
+                    let param = {
+                        text: getQRcodeUrl(),
+                        width: 160,
+                        height: 160,
+                        colorDark: "#333C4F",
+                        correctLevel: 0,// 二维码结构复杂性 0~3
+                        src: 'img/logo@2x.png'
+                    }
+                    new QRCode(document.getElementById("iOSQRCode"), param);
+                    new QRCode(document.getElementById("androidQRCode"), param);
+
+                    new QRCode(document.getElementById("iOSQRCodeSmall"), param);
+                    new QRCode(document.getElementById("androidQRCodeSmall"), param);
+                },
+
+                //打开item
+                openContent(itemId) {
+                    this.contentUrl = getDetailUrl() + itemId;
+                    console.log(this.contentUrl)
+                    if (this.isPc) {
+                        this.showContent = true;
+                    } else {
+                        window.location.href = this.contentUrl;
+                    }
+                },
+                //关闭图文详情弹窗
+                closePopup() { this.showContent = false },
+
+                //拨打电话
+                callPhone() {
+                    window.location.href = 'tel:' + this.companyInfo.phone;
+                },
+
+
+                //加载地图
+                initMap() {
+                    try {
+                        var map = new BMap.Map('map-container');
+                        var point = new BMap.Point(this.companyInfo.longitude, this.companyInfo.latitude);
+                        var initMareker = new BMap.Marker(point);
+                        map.addOverlay(initMareker);
+                        map.centerAndZoom(point, 17);
+                        map.enableScrollWheelZoom(true);
+                        map.addControl(new BMap.NavigationControl())
+
+                        let titleText = "我们在这里";
+                        //创建信息窗口对象 
+                        let html = '<div><div><img class="marker-title-img" src="img/Frame@2x.png"><span class="marker-title-text">' + titleText + '</span></div><span class="marker-title-addr">' + this.companyInfo.address + '</span></div>';
+                        var infoWindow = new BMap.InfoWindow(html);
+                        infoWindow.enableAutoPan(true);
+                        //窗口坐标
+
+                        var winPOint = new BMap.Point(this.companyInfo.longitude, this.companyInfo.latitude + 0.000100);
+                        //默认开启窗口
+                        map.openInfoWindow(infoWindow, winPOint);
+                        initMareker.addEventListener("click", function () {
+                            map.openInfoWindow(infoWindow, winPOint);
+                        });
+                    } catch (error) {
+                        console.log(error)
+                    }
+                },
+
+                //开始
+                startFunction() {
+                    var dateString = new Date()
+                    this.companyInfo.copyRight = 'Copyright 2010-' + dateString.getFullYear();
+
+                    this.getCommunity();
+                    this.getCurriculum();
+                },
+                //获取社区数据
+                getCommunity() {
+
+                    if (this.loadAllCommunity) {
+                        return
+                    }
+
+                    if (this.isTest) {
+                        let data = testData;
+                        data = this.handlerData(data.data);
+                        this.community.push(...data);
+                        this.pageNumCommunity++;
+                        if (this.pageNumCommunity > 3) {
+                            this.loadAllCommunity = true;
+                        }
+                        return
+                    }
+
+                    request('/v2/api/article/webList', {
+                        "pageNo": this.pageNumCommunity,
+                        "pageSize": this.pageSize,
+                        "sourceType": "1"
+                    }, 'post').then(res => {
+                        let data = this.handlerData(res.data);
+                        this.community.push(...data);
+                        if (data.length < this.pageSize) {
+                            //加载全部
+                            this.loadAllCommunity = true;
+                        } else {
+                            this.pageNumCommunity++;
+                        }
+                    }).catch(err => {
+                        vant.Toast(err.msg);
+                    })
+
+                },
+                //获取课程数据
+                getCurriculum() {
+                    if (this.loadAllCurriculum) {
+                        return
+                    }
+                    if (this.isTest) {
+                        let data = testData;
+                        data = this.handlerData(data.data);
+                        this.curriculum.push(...data);
+                        this.pageNumCurriculum++;
+                        if (this.pageNumCurriculum > 3) {
+                            this.loadAllCurriculum = true;
+                        }
+                        return
+                    }
+
+
+                    request('/v2/api/article/webList', {
+                        "pageNo": this.pageNumCurriculum,
+                        "pageSize": this.pageSize,
+                        "sourceType": "2"
+                    }, 'post').then(res => {
+                        let data = this.handlerData(res.data);
+                        this.curriculum.push(...data);
+                        if (data.length < this.pageSize) {
+                            //加载全部
+                            this.loadAllCurriculum = true;
+                        } else {
+                            this.pageNumCurriculum++;
+                        }
+                    }).catch(err => {
+                        vant.Toast(err.msg);
+                    })
+                },
+
+
+                //处理数据
+                handlerData(data) {
+                    let array = new Array();
+                    for (let it of data) {
+                        //获取内部信息
+                        let text = this.findContent(it.contentJson, 'text');
+                        let img = this.findContent(it.contentJson, 'img');
+                        let video = this.findContent(it.contentJson, 'video');
+                        let item = {
+                            id: it.id,
+                            title: it.title,
+                            content: text,
+                            img: img,
+                            video: video,
+                        };
+                        array.push(item)
+                    }
+                    return array;
+                },
+
+                /**
+                  *  获取数据
+                  * @param {Object} json  json数据
+                  * @param {Object} type, 获取数据类型  合法值：text，img，video
+                  * @returns res为服务器返回的数据包 res.data是数据 res.msg是提示信息 res.code 是状态码
+                  */
+                findContent(json, type) {
+                    for (let item of json) {
+                        try {
+                            let content = item.content[0];
+                            if (type == 'img') {
+                                if (item.type == 'image' || item.type == 'images') {
+                                    return content
+                                }
+                            } else {
+                                if (item.type == type) {
+                                    if (type == 'text') {
+                                        if (content) {
+                                            content = content.replace(/<.*?>/ig, "");
+                                        }
+                                    }
+                                    return content
+                                }
+                            }
+
+                        } catch (error) {
+                            console.log('数据解析异常：返回的contentJson.content为null', error)
+                        }
+                    }
+                    return ''
+                },
+                //下载APP 
+                downloadApp(type) {
+                    if (isWeChatOrQQ()) {
+                        this.showDownloadTips = true;
+                    } else {
+                        if (type == 'iOS') {
+                            if (isiOS()) {
+                                window.location.href = iOSDownloadUrl
+                            } else {
+                                vant.Toast('请使用苹果手机下载');
+                            }
+
+                        } else {
+                            //Android 开始下载文件
+                            if (isAndroid()) {
+                                var src = apkDownloadUrl
+                                if (!src) {
+                                    vant.Toast("请配置下载地址")
+                                }
+                                console.log("下载地址：" + src)
+                                var iframe = document.createElement('iframe');
+                                iframe.style.display = 'none';
+                                iframe.src = "javascript: '<script>location.href=\"" + src + "\"<\/script>'";
+                                document.getElementsByTagName('body')[0].appendChild(iframe);
+                            } else {
+                                vant.Toast('请使用安卓手机下载');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</html>
