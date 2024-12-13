@@ -1,0 +1,303 @@
+.div-cascading {
+    position: relative;
+    width: 100%;
+}
+
+.top-bg-img {
+    width: 100%;
+    height: 440px;
+}
+
+.logo-icon {
+    height: 70px;
+    width: 70px;
+}
+
+
+.div-download {
+    position: absolute;
+    left: 40px;
+    top: 100px;
+}
+
+.div-phone {
+    position: absolute;
+    right: 0;
+    top: 150px;
+}
+
+.div-phone img {
+    height: 350x;
+    width: 282px;
+}
+
+.div-jiantou {
+    position: absolute;
+    left: 40px;
+    bottom: 50px;
+}
+
+.div-jiantou img {
+    height: 90px;
+    width: 30px;
+}
+
+.logo-text {
+    margin-top: 20px;
+    font-size: 32px;
+    font-family: PingFang SC-Heavy, PingFang SC;
+    font-weight: 800;
+    color: #0F121E;
+    line-height: 32px;
+}
+
+.logo-text-tips {
+    font-size: 18px;
+    font-family: PingFang SC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #53585E;
+    line-height: 18px;
+}
+
+.download {
+    width: 100%;
+    text-align: center;
+    height: 45px;
+    background: #333C4F;
+    color: white;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.download img {
+    width: 26px;
+    height: 26px;
+    vertical-align: middle;
+}
+
+.download span {
+    vertical-align: middle;
+    line-height: 45px;
+}
+
+.mobile-download {
+    margin: 60px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-bg {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 30px 20px 0px;
+}
+
+.tab-title-bg {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tab-text {
+    font-size: 32px;
+    font-family: PingFang SC-Heavy, PingFang SC;
+    font-weight: 800;
+    color: #333333;
+    line-height: 32px;
+}
+
+
+.tab-title {
+    position: absolute;
+    padding-bottom: 2px;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.info-title {
+    font-size: 16px;
+    font-family: PingFang SC-Bold, PingFang SC;
+    font-weight: bold;
+    color: #0F121E;
+}
+
+
+/* 最多显示2行 超出的点点点 */
+.text-two-line {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.info-des {
+    font-size: 14px;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    line-height: 26px;
+    color: #0F121E;
+}
+
+.context-bg {
+    padding: 40px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.content-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+}
+
+.tab-line {
+    margin-top: 10px;
+    height: 4px;
+    width: 34px;
+    background-color: #333;
+    position: absolute;
+}
+
+.about-text {
+    padding: 44px 0px;
+    white-space: pre-wrap;
+}
+
+.marker-div {
+    background-color: wheat;
+}
+
+.marker-title-img {
+    vertical-align: middle;
+    height: 24px;
+    width: 24px;
+}
+
+.marker-title-text {
+    font-size: 16px;
+    font-family: PingFang SC-Heavy, PingFang SC;
+    font-weight: 800;
+    color: #0F121E;
+    line-height: 16px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.Pop-up {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.fade {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 11;
+}
+
+.wechat-tips {
+    width: 80%;
+    position: fixed;
+    z-index: 12;
+    right: 20px;
+    top: 0;
+}
+
+.marker-title-addr {
+    margin-left: 34px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #3A4152;
+    line-height: 16px;
+}
+
+.bottom-view {
+    padding: 20px;
+    background: #333C4F;
+    color: white;
+    border-bottom: 1px solid rgba(125, 130, 135, 0.1);
+}
+
+/* .address-phone {
+    text-align: center;
+} */
+
+.address-phone img {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+.address-phone span {
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.copyright {
+    padding: 20px 10px;
+    background: #333C4F;
+    text-align: center;
+}
+
+.copyright span {
+    font-size: 12px;
+    font-family: PingFang SC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #B1BBC6;
+    line-height: 12px;
+}
+
+#map-container {
+    margin-top: 20px;
+    width: 100%;
+    height: 280px;
+}
+
+
+
+.popu-title {
+    font-size: 16px;
+    font-family: PingFang SC-Medium, PingFang SC;
+    color: #0F121E;
+    line-height: 18px;
+}
+
+.loadMore {
+    height: 60px;
+    line-height: 50px;
+    text-align: center;
+    color: #35506C;
+}
+
+
+.video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-img {
+    position: absolute;
+    height: 34px;
+    width: 34px;
+}
+
+.img-mar_l {
+    margin-left: 10px;
+}
